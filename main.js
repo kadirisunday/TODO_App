@@ -75,3 +75,32 @@ let resetForm = () => {
     dateInput.value = "";
     textarea.value = "";
   };
+
+// Function to delete task
+let deleteTask
+ = (e) => {
+    e.parentElement.parentElement.remove();
+
+    data.splice(e.parentElement.parentElement.id, 1);
+
+    localStorage.setItem("data", JSON.stringify(data));
+
+    console.log(data);
+ }
+
+//  edit task function
+let editTask = (e) => {
+    let selectedTask = e.parentElement.parentElement;
+  
+    textInput.value = selectedTask.children[0].innerHTML;
+    dateInput.value = selectedTask.children[1].innerHTML;
+    textarea.value = selectedTask.children[2].innerHTML;
+  
+    deleteTask(e);
+  };
+
+  (() => {
+    data = JSON.parse(localStorage.getItem("data")) || [];
+    console.log(data);
+    createTasks();
+  })();
